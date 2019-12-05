@@ -112,3 +112,32 @@ end
 Then (/^press the students button on the students panel on the home page$/) do
   $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[7]//a[contains(@href,'https://www.khanacademy.org/signup')]").click
 end
+
+Then (/^press the teachers button on the teachers panel on the home page$/) do
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//a[contains(@href,'https://www.khanacademy.org/signup?isteacher=1')]").click
+end
+
+Then (/^verify the join khan academy panel on the home page$/) do
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//h2[contains(text(),'Join Khan Academy today')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a//div[contains(text(),'Learners')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a//div[contains(text(),'Teachers')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a//div[contains(text(),'Districts')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a//div[contains(text(),'Parents')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a//div[contains(text(),'Give today')]")
+end
+
+Then (/^press the (learners|teachers|districts|parents|give today) button on the join khan academy panel on the home page$/) do |buttonInput|
+  case buttonInput.downcase
+
+  when "learners"
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a[1]").click
+  when "teachers"
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a[2]").click
+  when "districts"
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a[3]").click
+  when "parents"
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a[4]").click
+  when "give today"
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[10]//a[5]").click
+  end
+end
