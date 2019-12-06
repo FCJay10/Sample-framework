@@ -6,5 +6,7 @@ Feature: Enter search words into the top navigation search bar and verify the us
   
  	Scenario: Enter search words into the top navigation search bar and verify the user lands on the search results page
 		  When navigate to the following page "https://www.khanacademy.org/"
+		  Then pause 2 seconds
 		  Then enter the following words "math" and search using the search button on the top navigation header
-		Then verify the search results page has results
+		  Then pause 2 seconds
+		  Then verify the search results page has results

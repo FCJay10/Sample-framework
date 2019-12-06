@@ -96,8 +96,12 @@ Then (/^select a course "([^"]*)" from the courses select menu on the top naviga
 end
 
 Then (/^enter the following words "([^"]*)" and search using the search button on the top navigation header$/) do |searchInput|
-  $driver.find_element(:xpath, ".//nav[@aria-label='page header' and @role='navigation']//a[@aria-label='Search for courses, skills, and videos']").send_keys(searchInput)
   $driver.find_element(:xpath, ".//nav[@aria-label='page header' and @role='navigation']//a[@aria-label='Search for courses, skills, and videos']").click
+  sleep 2
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']//input[@aria-label='Search for courses, skills, and videos']").send_keys(searchInput)
+  sleep 2
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']//input[@aria-label='Search for courses, skills, and videos']").send_keys :enter
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']//input[@aria-label='Search for courses, skills, and videos']").send_keys :enter
 end
 
 Then (/^press the (logo|donate|login|sign up) button from the top navigation header$/) do |buttonInput|
