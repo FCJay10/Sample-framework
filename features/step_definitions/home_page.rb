@@ -10,11 +10,9 @@ every classroom.
 Real results.}
 
 expect(introHeader).to eq(compareHeader)
+wait = Selenium::WebDriver::Wait.new(:timeout => 30)
+introHeader3 = wait.until { $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//p[1]/span") }.text
 
-introHeader2 = $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//span[3]").text
-expect(introHeader2).to eq("Real results.")
-
-introHeader3 = $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//p[1]/span").text
 expect(introHeader3).to eq("We’re a nonprofit with the mission to provide a free, world-class education for anyone, anywhere.")
 
 $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//a//span//div[contains(text(),'Learners')]")
@@ -25,9 +23,11 @@ $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[
 end
 
 Then (/^click the (learners|teachers|districts|parents) link on the introduction panel on the home page$/) do |linkInput|
+  wait = Selenium::WebDriver::Wait.new(:timeout => 5)
+  wait.until { $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//a[1]") }
   case linkInput.downcase
   when "learners"
-    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//a[1]").click    
+    $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//a[1]").click
   when "teachers"
     $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[1]//a[2]").click    
   when "districts"
@@ -52,11 +52,11 @@ expect(districtsHeader).to eq(compareHeader)
 
   districtsHeader2Link = $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[5]//p//a").attribute(:href)
   expect(districtsHeader2Link).to eq("https://www.prnewswire.com/news-releases/khan-academy-introduces-new-mastery-learning-features-300708027.html")
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[5]//div[1]/a[contains(@href,'https://www.khanacademy.org/district')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[5]//div[1]/a[contains(@href,'/district')]")
 end
 
 Then (/^press the districts button on the districts panel on the home page$/) do
- $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[5]//div[1]/a[contains(@href,'https://www.khanacademy.org/district')]").click
+ $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[5]//div[1]/a[contains(@href,'/district')]").click
 end
 
 Then (/^verify the donors panel on the home page$/) do
@@ -71,11 +71,11 @@ expect(donorHeader).to eq(compareHeader)
 
   expect(donorHeader2).to eq("Across the globe, 617 million children are missing basic math and reading skills. We’re a nonprofit delivering the education they need, and we need your help. You can change the course of a child’s life.")
 
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[9]//div[1]/a[contains(@href,'https://www.khanacademy.org/donors')]")
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[9]//div[1]/a[contains(@href,'/donors')]")
 end
 
-Then (/^press the donors button on the districts panel on the home page$/) do
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[9]//div[1]/a[contains(@href,'https://www.khanacademy.org/donors')]").click
+Then (/^press the donors button on the donors panel on the home page$/) do
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[9]//div[1]/a[contains(@href,'/donors')]").click
 end
 
 
@@ -84,8 +84,7 @@ Then (/^verify the teachers panel on the home page$/) do
   $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//span[text()='DUSTIN FAUTH / 4th grade teacher / Falmouth, MA']")
   teachersHeader = $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//h2").text
   
-compareHeader = %Q{“I’m finally able to truly
-differentiate my classroom. This has been priceless for my students’ engagement.”}
+compareHeader = %Q{“I’m finally able to truly differentiate my classroom. This has been priceless for my students’ engagement.”}
 
 expect(teachersHeader).to eq(compareHeader)
 
@@ -95,7 +94,7 @@ $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[
 end
 
 Then (/^press the teachers button on the teachers panel on the home page$/) do
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//a[contains(@href,'https://www.khanacademy.org/signup?isteacher=1')]").click
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//a[contains(@href,'/signup?isteacher=1')]").click
 end
 
 Then (/^verify the students panel on the home page$/) do
@@ -110,11 +109,7 @@ expect(studentsHeader).to eq(compareHeader)
 end
 
 Then (/^press the students button on the students panel on the home page$/) do
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[7]//a[contains(@href,'https://www.khanacademy.org/signup')]").click
-end
-
-Then (/^press the teachers button on the teachers panel on the home page$/) do
-  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[6]//a[contains(@href,'https://www.khanacademy.org/signup?isteacher=1')]").click
+  $driver.find_element(:xpath, ".//*[@id='app-shell-root']/div/div[3]/div/div/div[7]//a[contains(@href,'/signup')]").click
 end
 
 Then (/^verify the join khan academy panel on the home page$/) do

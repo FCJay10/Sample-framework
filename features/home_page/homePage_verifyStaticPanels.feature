@@ -1,4 +1,4 @@
-@homePage_verifyRedirectPanels @smoke
+@homePage_verifyStaticPanels @smoke
 Feature: Verify the panels with links on the home page navigates the user to the correct pages
   When I land on the home page
   

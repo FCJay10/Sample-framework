@@ -18,3 +18,23 @@ compareText = %Q{By signing up for Khan Academy, you agree to our Terms of use a
 
  expect(signUpText2 == compareText).to be true
 end
+
+Then (/^verify the user is on the learners sign up page$/) do
+  $driver.find_element(:xpath, ".//div[@id='login-signup-root']//h1[contains(text(),'A world class education for anyone, anywhere. 100% free.')]")
+  $driver.find_element(:xpath, ".//div[@id='login-signup-root']//h2[contains(text(),'Join Khan Academy to get personalized help with what you’re studying or to learn something completely new. We’ll save all of your progress.')]")
+ 
+  signUpText = $driver.find_element(:xpath, ".//div[@id='login-signup-root']//div/div[3]/section[1]/div/div/span/div/div/span").text
+compareText = %Q{By signing up for Khan Academy, you agree to our Terms of use and Privacy Policy.}
+
+ expect(signUpText == compareText).to be true
+end
+
+Then (/^verify the user is on the parents sign up page$/) do
+  $driver.find_element(:xpath, ".//h1[contains(text(),'First, create your parent account.')]")
+  $driver.find_element(:xpath, ".//h2[contains(text(),'Khan Academy is a great way for your child to get help with what they’re learning in school or to learn something completely new.')]")
+ 
+  signUpText = $driver.find_element(:xpath, ".//div[@id='login-signup-root']//div/div[3]/section[1]/div/div/span/div/div/span").text
+compareText = %Q{By signing up for Khan Academy, you agree to our Terms of use and Privacy Policy.}
+
+ expect(signUpText == compareText).to be true
+end
